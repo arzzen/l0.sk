@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Init</title>
+    <link type="text/css" href="assets/style.css" rel="stylesheet" media="screen, handheld" />
+    <script type="application/javascript" src="assets/jquery.js"></script>
+    <script type="application/javascript" src="assets/terminal.js"></script>
+    <script type="application/javascript" src="https://raw.githubusercontent.com/timrwood/moment/1.6.2/min/moment.min.js"></script>
+    <script type="application/javascript" src="https://raw.githubusercontent.com/mckamey/countdownjs/master/countdown.min.js"></script>
+</head>
+
+<body class="landing">
+    <div id="container">
+        <div id="head">
+            <span id="date">Loading Local Date & Time ...</span>
+            <span id="client"></span>
+            <span id="ip-address"></span>
+            <p class="welcome">
+                ---- Welcome to my <a href="https://l0.sk/" rel="author">URL</a> ----
+                (start with <span class="helptext">&#8216;help&#8217;</span> if you are lost)
+            </p>
+            Counting my breath since,
+            <span id="count-up">...</span>
+        </div>
+        <br>
+        <div id="input" autofocus></div>
+    </div>
+    <div id="placeHolder"></div>
+
+<script type="text/javascript">
+//<![CDATA[
+jQuery(document).ready(function ($) {
+    $('.cursor').focus();
+
+    $('#input').terminal(function (command, term) {
+
+        switch (command) {
+            case 'help':
+                var strVar = "";
+                strVar += "<table class=\"help\" border=\"0\">";
+                strVar += "    <tbody>";
+                strVar += "        <tr>";
+                strVar += "            <td class=\"less\" width=\"100px\">command<\/td>";
+                strVar += "            <td class=\"less\" width=\"150px\">parameters<\/td>";
+                strVar += "            <td class=\"less\">description<\/td>";
+                strVar += "        <\/tr>";
+                strVar += "        <tr>";
+                strVar += "            <td>whoami<\/td>";
+                strVar += "            <td>[no parameters]<\/td>";
+                strVar += "            <td>read more about me <\/td>";
+                strVar += "        <\/tr>";
+                strVar += "        <tr>";
+                strVar += "            <td>whereis<\/td>";
+                strVar += "            <td>[no parameters]<\/td>";
+                strVar += "            <td>find out ways to contact me<\/td>";
+                strVar += "        <\/tr>";
+                strVar += "        <tr>";
+                strVar += "            <td>lab<\/td>";
+                strVar += "            <td>[keywords]<\/td>";
+                strVar += "            <td>checkout my lab for experiments<\/td>";
+                strVar += "        <\/tr>";
+                strVar += "        <tr>";
+                strVar += "            <td>clear<\/td>";
+                strVar += "            <td><\/td>";
+                strVar += "            <td>clear the screen <\/td>";
+                strVar += "        <\/tr>";
+                strVar += "        <tr>";
+                strVar += "            <td>help<\/td>";
+                strVar += "            <td>[command]<\/td>";
+                strVar += "            <td>displays help text <\/td>";
+                strVar += "        <\/tr>";
+                strVar += "    <\/tbody>";
+                strVar += "<\/table><br>";
+                term.echo(strVar, {raw: true});
+                break;
+
+            case 'about':
+            case 'whoami':
+                var temp = "<br>" +
+                        "My name is <strong>Lukáš Mešťan</strong>.<br>" +
+                        "I'm a software engineer living in Žilina who love open source.<br>" +
+                        "I build things I find useful. Usually for consumers. Always for people. ";
+                temp += "<br><br>";
+                temp += "<label>Technical Skills</label>;";
+                temp += "<ul>";
+                temp += "   <li>PHP, MySQL, Python, Java, HTML5, CSS3, Javascript, NodeJS, GruntJS, LESS</li>";
+                temp += "   <li>Amazon Web Services, Shell Scripting, XML, SOAP, REST</li>";
+                temp += "   <li>ElasticSearch, Redis, SphinX, MogileFS, Thumbor, RabbitMQ</li>";
+                temp += "   <li>Apache, Linux, Git, Subversion, Kibana, Marvel, Docker</li>";
+                temp += "   <li>Google Analytics, Google Tag Manager, SEO, Web Performance</li>";
+                temp += "   <li>Jenkins, Altcoin, Bitcoin, Eurotax</li>";
+                temp += "</ul>";
+
+                temp += "<label>Professional Experience</label>;";
+                temp += "<ul>";
+                temp += "   <li>Lead Web Developer - United Classifieds s.r.o. (Azet.sk, a.s.) <span style='color:#666'>[12.2015:06.2016]</span></li>";
+                temp += "   <li>Lead Web Developer - Azet.sk, a.s. <span style='color:#666'>[06.2011:12.2015]</span></li>";
+                temp += "   <li>Web Developer - Azet.sk, a.s. <span style='color:#666'>[06.2009:06.2011]</span></li>";
+                temp += "</ul>";
+
+                temp += "<label>GitHub Projects</label>;";
+                temp += "<ul>";
+                temp += "   <li><span style='color:#666'>[bash]</span> <a href='https://github.com/arzzen/pert' target='_blank' title='pert'>A simple command line utility to estimate tasks using PERT</a></li>";
+                temp += "   <li><span style='color:#666'>[php]</span> <a href='https://github.com/arzzen/altcoin-bitcoin-explorer' target='_blank' title='github'>Altcoin/Bitcoin Data Explorer </a></li>";
+                temp += "   <li><span style='color:#666'>[zsh]</span> <a href='https://github.com/arzzen/calc.plugin.zsh' target='_blank' title='github'>ZSH calculator - with support for basic math </a></li>";
+                temp += "   <li><span style='color:#666'>[php]</span> <a href='https://github.com/arzzen/php-flatbuffers' target='_blank' title='aws'>FlatBuffers (experimental) - Memory Efficient Serialization Library </a></li>";
+                temp += "   <li><span style='color:#666'>[python]</span> <a href='https://github.com/arzzen/python-simple-brainwallet' target='_blank' title='aws'>A brainwallet refers to the concept of storing Bitcoins in one's own mind by memorization of a passphrase </a></li>";
+                temp += "   <li><a href='https://github.com/arzzen/?tab=repositories' target='_blank' title='all github projects'>...</a></li>";
+                temp += "</ul>";
+
+                temp += "<label>Projects</label>;";
+                temp += "<ul>";
+                temp += "   <li><span style='color:#666'>[past]</span> <a href='http://www.bazar.sk/' target='_blank' title='bazar'>Bazar.sk</a>, <a href='http://www.autobazar.sk/' target='_blank' title='autobazar'>Autobazar.sk</a>, <a href='http://www.nehnutelnosti.sk/' target='_blank' title='nehnutelnosti'>Nehnutelnosti.sk</a>, <a href='http://www.noveauta.sk/' target='_blank' title='noveauta'>Noveauta.sk</a>, <a href='http://www.byty.sk/' target='_blank' title='byty'>Byty.sk</a>, <a href='http://www.novostavby.sk/' target='_blank' title='novostavby'>Novostavby.sk</a>, <a href='https://www.abmanager.sk/' target='_blank' title='abmanager'>Abmanager.sk</a>...</li>";
+                temp += "   <li><span style='color:#666'>[other]</span> <a href='https://www.jaspravim.sk' target='_blank' title='Jaspravim'>Jaspravim.sk</a>, <a href='https://www.jaudelam.cz/' target='_blank' title='github'>Jaudelam.cz</a></li>";
+                temp += "</ul>";
+
+                temp += "<label>I Follow</label>;";
+                temp += "<ul>";
+                temp += "   <li><a href='https://news.ycombinator.com/' target='_blank' title='YCombinator'>Hacker News</a></li>";
+                temp += "   <li><a href='https://github.com/' target='_blank' title='github'>GitHub</a></li>";
+                temp += "   <li><a href='https://www.awsarchitectureblog.com/' target='_blank' title='aws'>AWS Architecture Blog</a></li>";
+                temp += "   <li><a href='https://aws.amazon.com/blogs/aws/' target='_blank' title='aws'> AWS Blog </a></li>";
+                temp += "   <li><a href='http://dsl.sk/' target='_blank' title='DSL'>DSL</a></li>";
+                temp += "</ul>";
+
+                term.echo(temp, {raw: true});
+                break;
+
+            case 'contact':
+            case 'whereis':
+                var strVar = "";
+                strVar += "<table border='0' style='margin-left:2px;'>";
+                strVar += "    <tr>";
+                strVar += "        <td width='360px'><a href='mailto:lukas.mestan@gmail.com?subject=I want to hire you' target='_blank' title='Get in touch on e-mail'>Email<\/a>";
+                strVar += "            <br\/>lukas<span style='color:#666'>[dot]<\/span>mestan<span style='color:#666'>[at]<\/span>gmail<span style='color:#666'>[dot]<\/span>com<\/td>";
+                strVar += "        <td><a href='https://facebook.com/googleemail' target='_blank' title='Subscribe to my facebook updates'>Facebook<\/a>";
+                strVar += "            <br\/>lukas mestan<\/td>";
+                strVar += "    <\/tr>";
+                strVar += "    <tr>&nbsp;<\/tr>";
+                strVar += "    <tr>";
+                strVar += "        <td>";
+                strVar += "            <br\/><a href='https://github.com/arzzen' target='_blank' title='Feast on my delicious source code'>Github<\/a>";
+                strVar += "            <br\/>arzzen<\/td>";
+                strVar += "        <td>";
+                strVar += "            <br\/><a href='https://twitter.com/arzzen' target='_blank' title='Follow me on twitter'>Twitter<\/a>";
+                strVar += "            <br\/><span style='color:#666'>[at]<\/span>arzzen<\/td>";
+                strVar += "    <\/tr>";
+                strVar += "    <tr>";
+                strVar += "        <td><\/td>";
+                strVar += "        <td><\/td>";
+                strVar += "    <\/tr>";
+                strVar += "    <tr>&nbsp;<\/tr>";
+                strVar += "    <tr>";
+                strVar += "        <td>&nbsp;<\/td>";
+                strVar += "        <td>&nbsp;<\/td>";
+                strVar += "    <\/tr>";
+                strVar += "    <tr>";
+                strVar += "        <td><a href='https://www.instagram.com/macicko/'>Instagram<\/a>";
+                strVar += "            <br\/>macicko<\/td>";
+                strVar += "        <td><a href='https://keybase.io/get'>Keybase<\/a>";
+                strVar += "            <br>get";
+                strVar += "        <\/td>";
+                strVar += "    <\/tr>";
+                strVar += "";
+                strVar += "<\/table><br>";
+                term.echo(strVar, {raw: true});
+                break;
+
+            case 'lab':
+                term.echo('@todo');
+                break;
+
+            case 'ping':
+                term.echo('pong');
+                break;
+
+            case 'rm -rf /':
+                term.echo('done');
+                break;
+
+            default:
+                if (command != '') {
+                    term.echo(command + ': command not found');
+                }
+                break;
+        }
+    }, {
+        greetings: "",
+        onBlur: function () {
+            // prevent loosing focus
+            return false;
+        },
+        name: 'prompt',
+        convertLinks: false,
+        width: '100%',
+        prompt: 'root@devel:~$ '
+    });
+
+
+
+    /* Browser Detection Module */
+    var BrowserDetect = {
+        init: function() {
+            this.browser = this.searchString(this.dataBrowser) || "Unknown Browser";
+            this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || "Unknown Version";
+            this.OS = this.searchString(this.dataOS) || "Unknown OS";
+        },
+        searchString: function(data) {
+            for (var i = 0; i < data.length; i++) {
+                var dataString = data[i].string;
+                var dataProp = data[i].prop;
+                this.versionSearchString = data[i].versionSearch || data[i].identity;
+                if (dataString) {
+                    if (dataString.indexOf(data[i].subString) != -1)
+                        return data[i].identity;
+                } else if (dataProp)
+                    return data[i].identity;
+            }
+        },
+        searchVersion: function(dataString) {
+            var index = dataString.indexOf(this.versionSearchString);
+            if (index == -1)
+                return;
+            return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
+        },
+        dataBrowser: [{
+            string: navigator.userAgent,
+            subString: "Chrome",
+            identity: "Chrome"
+        }, {
+            string: navigator.userAgent,
+            subString: "OmniWeb",
+            versionSearch: "OmniWeb/",
+            identity: "OmniWeb"
+        }, {
+            string: navigator.vendor,
+            subString: "Apple",
+            identity: "Safari",
+            versionSearch: "Version"
+        }, {
+            prop: window.opera,
+            identity: "Opera",
+            versionSearch: "Version"
+        }, {
+            string: navigator.vendor,
+            subString: "iCab",
+            identity: "iCab"
+        }, {
+            string: navigator.vendor,
+            subString: "KDE",
+            identity: "Konqueror"
+        }, {
+            string: navigator.userAgent,
+            subString: "Firefox",
+            identity: "Firefox"
+        }, {
+            string: navigator.vendor,
+            subString: "Camino",
+            identity: "Camino"
+        }, {
+            string: navigator.userAgent,
+            subString: "Netscape",
+            identity: "Netscape"
+        }, {
+            string: navigator.userAgent,
+            subString: "MSIE",
+            identity: "Internet Explorer",
+            versionSearch: "MSIE"
+        }, {
+            string: navigator.userAgent,
+            subString: "Gecko",
+            identity: "Mozilla",
+            versionSearch: "rv"
+        }, {
+            string: navigator.userAgent,
+            subString: "Mozilla",
+            identity: "Netscape",
+            versionSearch: "Mozilla"
+        }],
+        dataOS: [{
+            string: navigator.platform,
+            subString: "Win",
+            identity: "Windows"
+        }, {
+            string: navigator.platform,
+            subString: "Mac",
+            identity: "Mac"
+        }, {
+            string: navigator.userAgent,
+            subString: "iPhone",
+            identity: "iPhone/iPod"
+        }, {
+            string: navigator.platform,
+            subString: "Linux",
+            identity: "Linux"
+        }]
+    };
+    BrowserDetect.init();
+
+
+    document.getElementById("client").innerHTML = '#1: Client - ' + BrowserDetect.browser + ' ' + BrowserDetect.version + ' + ' + BrowserDetect.OS;
+
+
+    document.getElementById("date").innerHTML = moment().format("dddd, MMMM DD YYYY, HH:mm:ss");
+    setInterval(function() {
+        document.getElementById("date").innerHTML = moment().format("dddd, MMMM DD YYYY, HH:mm:ss");
+        document.getElementById("count-up").innerHTML = countdown(new Date(1985, 10, 20));
+    }, 1000);
+});
+//]]>
+</script>
+</body>
+</html>
