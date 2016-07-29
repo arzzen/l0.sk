@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
 
     $('#input').terminal(function (command, term) {
 
-        switch (command) {
+        switch (command.toLowerCase()) {
             case 'help':
                 var strVar = "";
                 strVar += "<table class=\"help\" border=\"0\">";
@@ -178,6 +178,7 @@ jQuery(document).ready(function ($) {
                 term.echo('pong');
                 break;
 
+            case 'rm':
             case 'rm -rf /':
                 term.echo('done');
                 break;
